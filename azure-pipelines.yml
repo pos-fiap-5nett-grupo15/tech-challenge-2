@@ -10,7 +10,19 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  imageName: sql-server-fiap
+
+
 steps:
+- task: Docker@2
+  displayName: Build Docker Image
+  inputs:
+    containerRegistry: 'Docker Hub'
+    repository: 'caiomaia3/sql-server-fiap'
+    command: 'build'
+    Dockerfile: '**/docker/sql-server/Dockerfile'
+
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 

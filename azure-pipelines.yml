@@ -17,9 +17,6 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-variables:
-  imageName: sql-server-fiap
-
 
 steps:
 - task: Docker@2
@@ -27,7 +24,7 @@ steps:
   inputs:
     containerRegistry: 'Docker Hub'
     repository: 'caiomaia3/sql-server-fiap'
-    command: 'build'
+    command: 'buildAndPush'
     Dockerfile: '**/docker/sql-server/Dockerfile'
 
 - script: echo Hello, world!

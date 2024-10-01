@@ -5,6 +5,7 @@
 
 trigger:
 - main
+- feat/sql-server
 
 pool:
   vmImage: ubuntu-latest

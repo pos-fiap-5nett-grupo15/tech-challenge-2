@@ -4,8 +4,15 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
-- feat/sql-server
+  branches:
+    include:
+      - main
+      - feat/sql-server
+  paths:
+    include:
+      - docker/sql-server
+
+
 
 pool:
   vmImage: ubuntu-latest

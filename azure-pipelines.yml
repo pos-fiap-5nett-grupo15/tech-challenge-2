@@ -10,7 +10,10 @@ trigger:
       - feat/sql-server
   paths:
     include:
-      - docker/sql-server
+        - docker/sql-server
+
+
+
 
 
 
@@ -20,12 +23,21 @@ pool:
 
 steps:
 - task: Docker@2
-  displayName: Build Docker Image
+  displayName: Build Docker Image - Docker Hub
   inputs:
     containerRegistry: 'Docker Hub'
     repository: 'caiomaia3/sql-server-fiap'
     command: 'buildAndPush'
     Dockerfile: '**/docker/sql-server/Dockerfile'
+    
+- task: Docker@2
+  displayName: Build Docker Image - Azure Container Registry
+  inputs:
+    containerRegistry: 'ACR FIAP'
+    repository: 'fiap/sql-server-fiap'
+    command: 'buildAndPush'
+    Dockerfile: '**/docker/sql-server/Dockerfile'
+    tags: 'latest'
 
 - script: echo Hello, world!
   displayName: 'Run a one-line script'

@@ -23,7 +23,7 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Build with dotnet
-        run: dotnet build ./ContactsManager/ --configuration Release
+        run: dotnet build ./ContactsManager/ContactsManagement.Api/ContactsManagement.Api.csproj --configuration Release
 
       - name: dotnet publish
         run: dotnet publish ./ContactsManager/ContactsManagement.Api/ContactsManagement.Api.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp

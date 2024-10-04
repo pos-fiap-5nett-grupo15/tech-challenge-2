@@ -37,6 +37,7 @@ public class Program
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+        builder.Services.AddHealthChecks();
         var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
 
         ArgumentNullException.ThrowIfNull(jwtSettings);
@@ -54,6 +55,7 @@ public class Program
         ConfigureContactServices(builder.Services);
 
         var app = builder.Build();
+        app.MapHealthChecks("/healthz");
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();

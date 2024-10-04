@@ -62,6 +62,5 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'fiap-webapp-76a464e5dc4e49de8fc674e0db728386'
-          slot-name: 'production'
           package: .
           

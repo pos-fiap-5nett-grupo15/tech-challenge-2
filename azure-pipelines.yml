@@ -9,7 +9,9 @@ trigger:
       - main
   paths:
     include:
-        - docker/sql-server
+        - docker/sql-server/**
+    exclude:
+      - '**/*'
 pool:
   vmImage: ubuntu-latest
 

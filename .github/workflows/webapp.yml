@@ -7,7 +7,19 @@ on:
   push:
     branches:
       - main
-      - feat/webapp-poc
+    paths-ignore:
+      - 'docker/**'
+      - 'Docs/**'
+      - 'azure-pipelines.yml'
+      - 'README.md'
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - 'docker/**'
+      - 'Docs/**'
+      - 'azure-pipelines.yml'
+      - 'README.md'
   workflow_dispatch:
 
 jobs:

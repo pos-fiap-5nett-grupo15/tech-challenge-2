@@ -28,6 +28,7 @@ using ContactsManagement.Infrastructure.UnitOfWork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Prometheus;
 using System.Text;
 
 namespace ContactsManagement.Api;
@@ -60,11 +61,15 @@ public class Program
             app.UseSwaggerUI();
         }
 
+        app.UseMiddleware<RequestCounterMiddleware>();
         app.UseMiddleware<ExceptionMiddleware>();
         app.UseCors();
         app.UseHttpsRedirection();
         app.UseAuthorization();
         app.MapControllers();
+        app.UseMetricServer();
+
+
         app.Run();
     }
 
@@ -113,7 +118,7 @@ public class Program
     {
 
 
-        services.AddScoped<ITech1Database,Tech1Database>();
+        services.AddScoped<ITech1Database, Tech1Database>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
 

@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - feat/monitoring-settings
-    workflow_dispatch:
-
+  workflow_dispatch:
+  
 jobs:
   upload:
     name: Upload Files
@@ -13,9 +13,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Azure Login
-      uses: Azure/login@v2.2.0
-      with:
-        client-id: ${{ secrets.__clientidstorage__ }}
-        tenant-id: ${{ secrets.__tenantidsecretname__ }}
-        subscription-id: ${{ secrets.__subscriptionidsecretname__ }}
+        uses: Azure/login@v2.2.0
+        with:
+          client-id: ${{ secrets.__clientidstorage__ }}
+          tenant-id: ${{ secrets.__tenantidsecretname__ }}
+          subscription-id: ${{ secrets.__subscriptionidsecretname__ }}
           

@@ -26,7 +26,7 @@
       "datasource": {
         "default": true,
         "type": "prometheus",
-        "uid": "adzpn3u3u6j28c"
+        "uid": "ae042ei3zu7eoc"
       },
       "description": "Status atual da API",
       "fieldConfig": {
@@ -98,7 +98,7 @@
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "up{instance=\"host.docker.internal:5189\"}",
+          "expr": "up",
           "format": "time_series",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -116,7 +116,7 @@
       "datasource": {
         "default": true,
         "type": "prometheus",
-        "uid": "adzpn3u3u6j28c"
+        "uid": "ae042ei3zu7eoc"
       },
       "description": "Último tempo de funcionamento registrado pela API",
       "fieldConfig": {
@@ -206,11 +206,7 @@
       "type": "row"
     },
     {
-      "datasource": {
-        "default": true,
-        "type": "prometheus",
-        "uid": "adzpn3u3u6j28c"
-      },
+      "datasource": {},
       "description": "Percentual de utilização do CPU pela API",
       "fieldConfig": {
         "defaults": {
@@ -270,7 +266,7 @@
             "uid": "adzpn3u3u6j28c"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
+          "editorMode": "code",
           "expr": "system_runtime_cpu_usage",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -288,7 +284,7 @@
       "datasource": {
         "default": true,
         "type": "prometheus",
-        "uid": "adzpn3u3u6j28c"
+        "uid": "ae042ei3zu7eoc"
       },
       "description": "Histórico de utilização de CPU pela API por tempo",
       "fieldConfig": {
@@ -379,12 +375,12 @@
             "uid": "adzpn3u3u6j28c"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
+          "editorMode": "code",
           "expr": "system_runtime_cpu_usage",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "__auto",
+          "legendFormat": "Uso de CPU",
           "range": true,
           "refId": "A",
           "useBackend": false
@@ -394,11 +390,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": {
-        "default": true,
-        "type": "prometheus",
-        "uid": "adzpn3u3u6j28c"
-      },
+      "datasource": {},
       "description": "Uso da memória pela API(em bytes)",
       "fieldConfig": {
         "defaults": {
@@ -476,7 +468,7 @@
       "datasource": {
         "default": true,
         "type": "prometheus",
-        "uid": "adzpn3u3u6j28c"
+        "uid": "ae042ei3zu7eoc"
       },
       "description": "Histórico de utilização de RAM pela API(em bytes)",
       "fieldConfig": {
@@ -565,12 +557,12 @@
             "uid": "adzpn3u3u6j28c"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
+          "editorMode": "code",
           "expr": "process_private_memory_bytes",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "__auto",
+          "legendFormat": "Uso de memória",
           "range": true,
           "refId": "A",
           "useBackend": false
@@ -593,11 +585,7 @@
       "type": "row"
     },
     {
-      "datasource": {
-        "default": true,
-        "type": "prometheus",
-        "uid": "adzpn3u3u6j28c"
-      },
+      "datasource": {},
       "description": "Número total de requisições recebidas pela API",
       "fieldConfig": {
         "defaults": {
@@ -688,7 +676,7 @@
       "datasource": {
         "default": true,
         "type": "prometheus",
-        "uid": "adzpn3u3u6j28c"
+        "uid": "ae042ei3zu7eoc"
       },
       "description": "Média de tempo(em segundos) que as requisições estão levando na API",
       "fieldConfig": {
@@ -767,26 +755,53 @@
       "datasource": {
         "default": true,
         "type": "prometheus",
-        "uid": "adzpn3u3u6j28c"
+        "uid": "ae042ei3zu7eoc"
       },
-      "description": "Resumo dos status de retorno(HttpStatus) retornados pela API",
+      "description": "Resumo dos status de resposta da API para as requisições durante o período selecionado",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
-          "noValue": "0",
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
+                "color": "green"
               }
             ]
           }
@@ -794,59 +809,57 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 11,
-        "w": 7,
+        "h": 8,
+        "w": 20,
         "x": 0,
         "y": 26
       },
-      "id": 5,
+      "id": 13,
       "options": {
-        "displayMode": "gradient",
-        "maxVizHeight": 300,
-        "minVizHeight": 16,
-        "minVizWidth": 8,
-        "namePlacement": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
+        "legend": {
           "calcs": [
             "lastNotNull"
           ],
-          "fields": "",
-          "values": false
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
         },
-        "showUnfilled": true,
-        "sizing": "auto",
-        "valueMode": "color"
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
       },
       "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "adzpn3u3u6j28c"
+            "uid": "ae042ei3zu7eoc"
           },
           "editorMode": "code",
-          "expr": "sum(http_requests_info_total_count) by (request_status)",
+          "exemplar": false,
+          "expr": "sum(round(increase(http_requests_info_total_count[$__range]))) by (request_status)",
+          "format": "time_series",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Status das Requisições",
-      "type": "bargauge"
+      "title": "Status de resposta das requisições",
+      "type": "timeseries"
     },
     {
       "datasource": {
         "default": true,
         "type": "prometheus",
-        "uid": "adzpn3u3u6j28c"
+        "uid": "ae042ei3zu7eoc"
       },
       "description": "Número de requisições recebidas por endpoint",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "continuous-YlBl"
           },
           "fieldMinMax": false,
           "mappings": [],
@@ -855,8 +868,7 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "super-light-green",
-                "value": null
+                "color": "super-light-green"
               },
               {
                 "color": "light-green",
@@ -882,8 +894,8 @@
       "gridPos": {
         "h": 11,
         "w": 13,
-        "x": 7,
-        "y": 26
+        "x": 0,
+        "y": 34
       },
       "id": 10,
       "options": {
@@ -912,9 +924,9 @@
             "uid": "adzpn3u3u6j28c"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "sum by(path) (http_requests_info_total_count)",
+          "expr": "sum by(path) (http_requests_info_total_count{path=~\"$request_path\"})",
           "format": "time_series",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -928,13 +940,113 @@
       ],
       "title": "Requisições por endpoint",
       "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "ae042ei3zu7eoc"
+      },
+      "description": "Resumo dos status de retorno(HttpStatus) retornados pela API",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "blue",
+            "mode": "continuous-YlBl"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 7,
+        "x": 13,
+        "y": 34
+      },
+      "id": 5,
+      "options": {
+        "displayMode": "gradient",
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "11.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "adzpn3u3u6j28c"
+          },
+          "editorMode": "code",
+          "expr": "sum(http_requests_info_total_count{path=~\"$request_path\"}) by (request_status, path)",
+          "instant": false,
+          "legendFormat": "{{path}} - {{request_status}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Status das Requisições",
+      "type": "bargauge"
     }
   ],
   "refresh": "5s",
   "schemaVersion": 39,
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "allValue": "",
+        "current": {
+          "selected": false,
+          "text": "/auth",
+          "value": "/auth"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "ae042ei3zu7eoc"
+        },
+        "definition": "label_values(http_requests_info_total_count,path)",
+        "description": "Caminho da requisição: \"controller(método)\"",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Endpoint",
+        "multi": false,
+        "name": "request_path",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(http_requests_info_total_count,path)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
   },
   "time": {
     "from": "now-5m",
@@ -944,6 +1056,6 @@
   "timezone": "browser",
   "title": "tech_challenge_2_monitoring_dashboard",
   "uid": "de0073u5o6io0c",
-  "version": 8,
+  "version": 1,
   "weekStart": ""
 }

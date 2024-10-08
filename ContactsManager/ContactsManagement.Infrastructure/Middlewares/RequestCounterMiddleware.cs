@@ -14,7 +14,7 @@ namespace ContactsManagement.Infrastructure.Middlewares
         //                                                                                  new { "path", "duration_in_seconds" });
         private static readonly Histogram RequestAnalyzerInfo = Metrics.CreateHistogram(
             "http_requests_info_total",
-            "Duração das requisições HTTP em segundos",
+            "Informações customizadas sobre a requisição",
             new HistogramConfiguration
             {
                 LabelNames = new[] { "path", "request_status" },
@@ -39,6 +39,10 @@ namespace ContactsManagement.Infrastructure.Middlewares
                 var responseStatus = ((HttpStatusCode)context.Response.StatusCode).ToString() ?? "unknown";
 
                 requestTime.Stop();
+
+                requestPath = requestPath.Split('/').First(path => !string.IsNullOrEmpty(path)) ?? requestPath;
+                requestPath = $"{requestPath.Trim()}({context.Request.Method?.ToLower() ?? "unknown"})";
+
                 RequestAnalyzerInfo
                     .WithLabels(requestPath.ToLower().Trim(),
                                 responseStatus.ToLower().Trim())

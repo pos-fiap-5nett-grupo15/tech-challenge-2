@@ -1,0 +1,40 @@
+name: Build and Deploy Prometheus and Grafana
+
+on:
+  push:
+    branches:
+      - feat/monitoring-settings
+  workflow_dispatch:
+  
+jobs:
+  upload:
+    name: Upload Files
+    runs-on: ubuntu-latest
+    environment:
+      name: 'production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    permissions:
+      id-token: write #This is required for requesting the JWT
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Azure Login
+        uses: Azure/login@v2.2.0
+        with:
+          client-id: ${{ secrets.__clientidstorage__ }}
+          tenant-id: ${{ secrets.__tenantidsecretname__ }}
+          subscription-id: ${{ secrets.__subscriptionidsecretname__ }}
+
+      - name: Get storage account key
+        id: get-storage-key
+        run: |
+          STORAGE_KEY=$(az storage account keys list --resource-group fiap-tech-challenge-2 --account-name fiapappstorage --query '[0].value' --output tsv)
+          echo "storage-key=$STORAGE_KEY" >> $GITHUB_OUTPUT
+          
+      - name: Upload Configs
+        run: |
+          az storage file upload-batch \
+            --account-name fiapappstorage \
+            --destination fiapappfiles \
+            --source ./docker/monitoring/config/. \
+            --account-key ${{ steps.get-storage-key.outputs.storage-key }}

@@ -29,8 +29,8 @@ jobs:
         id: get-storage-key
         run: |
           STORAGE_KEY=$(az storage account keys list --resource-group fiap-tech-challenge-2 --account-name fiapappstorage --query '[0].value' --output tsv)
-          echo "::set-output name=storage-key::$STORAGE_KEY"
-      
+          echo "storage-key=$STORAGE_KEY" >> $GITHUB_OUTPUT
+          
       - name: Upload Configs
         run: |
           az storage file upload-batch \

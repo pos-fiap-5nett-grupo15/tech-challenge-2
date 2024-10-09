@@ -65,7 +65,7 @@ jobs:
               --environment-variables PROMETHEUS_CONFIG_PATH=/etc/prometheus/prometheus.yml \
           } \
           set +e \
-          az container show --resource-group fiap-tech-challenge-2 --name prometheus \
+          az container show --resource-group fiap-tech-challenge-2 --name prometheus; \
           if [ $? -eq 0 ]; then \
               az container delete --resource-group fiap-tech-challenge-2 --name prometheus --yes \
               create_container \

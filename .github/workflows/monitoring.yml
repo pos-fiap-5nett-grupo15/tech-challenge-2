@@ -123,13 +123,13 @@ grafana:
       - name: Azure az delete and create ACI
         run: |
           set +e
-          az container show --resource-group fiap-tech-challenge-2 --name prometheus;
+          az container show --resource-group fiap-tech-challenge-2 --name grafana;
           set -e
           if [ $? -eq 0 ]; then
-            az container delete --resource-group fiap-tech-challenge-2 --name prometheus --yes
+            az container delete --resource-group fiap-tech-challenge-2 --name grafana --yes
             az container create \
               --resource-group fiap-tech-challenge-2 \
-              --name prometheus \
+              --name grafana \
               --image grafana/grafana:7.2.1 \
               --registry-login-server  grupo15fiap.azurecr.io \
               --assign-identity \
@@ -147,7 +147,7 @@ grafana:
           else
             az container create \
               --resource-group fiap-tech-challenge-2 \
-              --name prometheus \
+              --name grafana \
               --image grafana/grafana:7.2.1 \
               --registry-login-server  grupo15fiap.azurecr.io \
               --assign-identity \

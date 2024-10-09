@@ -73,3 +73,6 @@ jobs:
               create_container \
           fi \
           set -e
+
+      - name: Grafana
+        run: echo Grafana

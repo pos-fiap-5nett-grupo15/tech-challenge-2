@@ -101,5 +101,64 @@ jobs:
           fi
           
 
-      - name: Grafana
-        run: echo Grafana
+grafana:
+    needs: prometheus
+    name: Deploy Grafana
+    runs-on: ubuntu-latest
+    environment:
+      name: 'production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    permissions:
+      id-token: write #This is required for requesting the JWT
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Azure Login
+        uses: Azure/login@v2.2.0
+        with:
+          client-id: ${{ secrets.__clientidsecretname__  }}
+          tenant-id: ${{ secrets.__tenantidsecretname__ }}
+          subscription-id: ${{ secrets.__subscriptionidsecretname__ }}
+          
+      - name: Azure az delete and create ACI
+        run: |
+          set +e
+          az container show --resource-group fiap-tech-challenge-2 --name prometheus;
+          set -e
+          if [ $? -eq 0 ]; then
+            az container delete --resource-group fiap-tech-challenge-2 --name prometheus --yes
+            az container create \
+              --resource-group fiap-tech-challenge-2 \
+              --name prometheus \
+              --image grafana/grafana:7.2.1 \
+              --registry-login-server  grupo15fiap.azurecr.io \
+              --assign-identity \
+              --registry-username=fiap-token \
+              --registry-password=${{ secrets.__REGISTRYPASSWORD__ }} \
+              --ports 3000 \
+              --dns-name-label grafana-container \
+              --location eastus \
+              --azure-file-volume-account-name fiapappstorage \
+              --azure-file-volume-account-key ${{ secrets.__VOLUMEACCOUNTKEY__ }} \
+              --azure-file-volume-share-name fiapappfiles \
+              --azure-file-volume-mount-path /etc/grafana/provisioning/ \
+              --environment-variables GF_SECURITY_ADMIN_PASSWORD=admin
+
+          else
+            az container create \
+              --resource-group fiap-tech-challenge-2 \
+              --name prometheus \
+              --image grafana/grafana:7.2.1 \
+              --registry-login-server  grupo15fiap.azurecr.io \
+              --assign-identity \
+              --registry-username=fiap-token \
+              --registry-password=${{ secrets.__REGISTRYPASSWORD__ }} \
+              --ports 3000 \
+              --dns-name-label grafana-container \
+              --location eastus \
+              --azure-file-volume-account-name fiapappstorage \
+              --azure-file-volume-account-key ${{ secrets.__VOLUMEACCOUNTKEY__ }} \
+              --azure-file-volume-share-name fiapappfiles \
+              --azure-file-volume-mount-path /etc/grafana/provisioning/ \
+              --environment-variables GF_SECURITY_ADMIN_PASSWORD=admin
+          fi

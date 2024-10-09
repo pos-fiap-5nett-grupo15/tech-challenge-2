@@ -40,6 +40,7 @@ jobs:
             --account-key ${{ steps.get-storage-key.outputs.storage-key }}
 
   prometheus:
+    needs: upload
     name: Deploy Prometheus
     runs-on: ubuntu-latest
     steps:
@@ -47,30 +48,28 @@ jobs:
         run: |
           create_container () { \
             az container create \
-                --resource-group fiap-tech-challenge-2 \
-                --name prometheus \
-                --image grupo15fiap.azurecr.io/prom/prometheus:v2.24.1 \
-                --registry-login-server  grupo15fiap.azurecr.io \
-                --assign-identity \
-                --registry-username= <registry-username> \
-                --registry-password= <registry-password> \
-                --ports 9090 \
-                --dns-name-label prometheus-container \
-                --location eastus \
-                --azure-file-volume-account-name fiapappstorage \
-                --azure-file-volume-account-key <volume-key> \
-                --azure-file-volume-share-name fiapappfiles \
-                --azure-file-volume-mount-path /etc/Prometheus/ \
-                --environment-variables PROMETHEUS_CONFIG_PATH=/etc/prometheus/prometheus.yml \
-                } \
-                set +e \
-                az container show --resource-group fiap-tech-challenge-2 --name prometheus \
-                if [ $? -eq 0 ]; then \
-                    az container delete --resource-group fiap-tech-challenge-2 --name prometheus --yes \
-                    create_container \
-                    echo Container deletado com sucesso! \
-                else \
-                    create_container \
-                fi \
-                set -e 
-    
+              --resource-group fiap-tech-challenge-2 \
+              --name prometheus \
+              --image grupo15fiap.azurecr.io/prom/prometheus:v2.24.1 \
+              --registry-login-server  grupo15fiap.azurecr.io \
+              --assign-identity \
+              --registry-username= <registry-username> \
+              --registry-password= <registry-password> \
+              --ports 9090 \
+              --dns-name-label prometheus-container \
+              --location eastus \
+              --azure-file-volume-account-name fiapappstorage \
+              --azure-file-volume-account-key <volume-key> \
+              --azure-file-volume-share-name fiapappfiles \
+              --azure-file-volume-mount-path /etc/Prometheus/ \
+              --environment-variables PROMETHEUS_CONFIG_PATH=/etc/prometheus/prometheus.yml \
+          } \
+          set +e \
+          az container show --resource-group fiap-tech-challenge-2 --name prometheus \
+          if [ $? -eq 0 ]; then \
+              az container delete --resource-group fiap-tech-challenge-2 --name prometheus --yes \
+              create_container \
+          else \
+              create_container \
+          fi \
+          set -e

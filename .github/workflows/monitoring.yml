@@ -54,7 +54,7 @@ jobs:
       - name: Azure Login
         uses: Azure/login@v2.2.0
         with:
-          client-id: ${{ secrets.__clientidstorage__ }}
+          client-id: ${{ secrets.__clientidsecretname__  }}
           tenant-id: ${{ secrets.__tenantidsecretname__ }}
           subscription-id: ${{ secrets.__subscriptionidsecretname__ }}
           

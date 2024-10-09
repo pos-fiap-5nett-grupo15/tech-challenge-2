@@ -71,13 +71,13 @@ jobs:
               --image grupo15fiap.azurecr.io/prom/prometheus:v2.24.1 \
               --registry-login-server  grupo15fiap.azurecr.io \
               --assign-identity \
-              --registry-username= ${{ env.__REGISTRYUSERNAME__ }} \
-              --registry-password= ${{ env.__REGISTRYPASSWORD__ }} \
+              --registry-username= ${{ secrets.__REGISTRYUSERNAME__ }} \
+              --registry-password= ${{ secrets.__REGISTRYPASSWORD__ }} \
               --ports 9090 \
               --dns-name-label prometheus-container \
               --location eastus \
-              --azure-file-volume-account-name ${{ env.__VOLUMEACCOUNTNAME__ }} \
-              --azure-file-volume-account-key ${{ env.__VOLUMEACCOUNTKEY__ }} \
+              --azure-file-volume-account-name ${{ secrets.__VOLUMEACCOUNTNAME__ }} \
+              --azure-file-volume-account-key ${{ secrets.__VOLUMEACCOUNTKEY__ }} \
               --azure-file-volume-share-name fiapappfiles \
               --azure-file-volume-mount-path /etc/Prometheus/ \
               --environment-variables PROMETHEUS_CONFIG_PATH=/etc/prometheus/prometheus.yml
@@ -88,13 +88,13 @@ jobs:
               --image grupo15fiap.azurecr.io/prom/prometheus:v2.24.1 \
               --registry-login-server  grupo15fiap.azurecr.io \
               --assign-identity \
-              --registry-username= ${{ env.__REGISTRYUSERNAME__ }} \
-              --registry-password= ${{ env.__REGISTRYPASSWORD__ }} \
+              --registry-username= ${{ secrets.__REGISTRYUSERNAME__ }} \
+              --registry-password= ${{ secrets.__REGISTRYPASSWORD__ }} \
               --ports 9090 \
               --dns-name-label prometheus-container \
               --location eastus \
-              --azure-file-volume-account-name ${{ env.__VOLUMEACCOUNTNAME__ }} \
-              --azure-file-volume-account-key ${{ env.__VOLUMEACCOUNTKEY__ }} \
+              --azure-file-volume-account-name ${{ secrets.__VOLUMEACCOUNTNAME__ }} \
+              --azure-file-volume-account-key ${{ secrets.__VOLUMEACCOUNTKEY__ }} \
               --azure-file-volume-share-name fiapappfiles \
               --azure-file-volume-mount-path /etc/Prometheus/ \
               --environment-variables PROMETHEUS_CONFIG_PATH=/etc/prometheus/prometheus.yml

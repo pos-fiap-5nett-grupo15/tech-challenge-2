@@ -9,9 +9,6 @@ namespace ContactsManagement.Infrastructure.Middlewares
     public class RequestCounterMiddleware
     {
         private readonly RequestDelegate _next;
-        //private static readonly Counter RequestCounter = Prometheus.Metrics.CreateCounter("http_requests_total",
-        //                                                                                  "Total number of HTTP requests",
-        //                                                                                  new { "path", "duration_in_seconds" });
         private static readonly Histogram RequestAnalyzerInfo = Metrics.CreateHistogram(
             "http_requests_info_total",
             "Informações customizadas sobre a requisição",

@@ -62,6 +62,7 @@ jobs:
         run: |
           set +e
           az container show --resource-group fiap-tech-challenge-2 --name prometheus;
+          set -e
           if [ $? -eq 0 ]; then
             az container delete --resource-group fiap-tech-challenge-2 --name prometheus --yes
             az container create \
@@ -98,7 +99,7 @@ jobs:
               --azure-file-volume-mount-path /etc/Prometheus/ \
               --environment-variables PROMETHEUS_CONFIG_PATH=/etc/prometheus/prometheus.yml
           fi
-          set -e
+          
 
       - name: Grafana
         run: echo Grafana

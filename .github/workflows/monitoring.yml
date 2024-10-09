@@ -39,11 +39,11 @@ jobs:
             --source ./docker/monitoring/config/. \
             --account-key ${{ steps.get-storage-key.outputs.storage-key }}
 
-    prometheus:
-      name: Deploy Prometheus
-      runs-on: ubuntu-latest
-      steps:
-        - name: Prometheus
+  prometheus:
+    name: Deploy Prometheus
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prometheus
         run: |
           create_container () { \
             az container create \
@@ -61,17 +61,16 @@ jobs:
                 --azure-file-volume-account-key <volume-key> \
                 --azure-file-volume-share-name fiapappfiles \
                 --azure-file-volume-mount-path /etc/Prometheus/ \
-                --environment-variables PROMETHEUS_CONFIG_PATH=/etc/prometheus/prometheus.yml}\
-
-        set +e \
-        az container show --resource-group fiap-tech-challenge-2 --name prometheus\
-        if [ $? -eq 0 ]; then \
-            az container delete --resource-group fiap-tech-challenge-2 --name prometheus --yes \
-            create_container \
-            echo Container deletado com sucesso! \
-
-        else \
-            create_container \
-        fi \
-        set -e 
+                --environment-variables PROMETHEUS_CONFIG_PATH=/etc/prometheus/prometheus.yml \
+                } \
+                set +e \
+                az container show --resource-group fiap-tech-challenge-2 --name prometheus \
+                if [ $? -eq 0 ]; then \
+                    az container delete --resource-group fiap-tech-challenge-2 --name prometheus --yes \
+                    create_container \
+                    echo Container deletado com sucesso! \
+                else \
+                    create_container \
+                fi \
+                set -e 
     

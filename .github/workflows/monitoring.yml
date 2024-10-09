@@ -46,10 +46,10 @@ jobs:
     steps:
       - name: Prometheus
         run: |
-          set +e \
-          az container show --resource-group fiap-tech-challenge-2 --name prometheus; \
-          if [ $? -eq 0 ]; then \
-            az container delete --resource-group fiap-tech-challenge-2 --name prometheus --yes \
+          set +e
+          az container show --resource-group fiap-tech-challenge-2 --name prometheus;
+          if [ $? -eq 0 ]; then
+            az container delete --resource-group fiap-tech-challenge-2 --name prometheus --yes
             az container create \
               --resource-group fiap-tech-challenge-2 \
               --name prometheus \
@@ -65,8 +65,8 @@ jobs:
               --azure-file-volume-account-key ${{ secrets.__VOLUMEACCOUNTKEY__ }} \
               --azure-file-volume-share-name fiapappfiles \
               --azure-file-volume-mount-path /etc/Prometheus/ \
-              --environment-variables PROMETHEUS_CONFIG_PATH=/etc/prometheus/prometheus.yml \
-          else \
+              --environment-variables PROMETHEUS_CONFIG_PATH=/etc/prometheus/prometheus.yml
+          else
             az container create \
               --resource-group fiap-tech-challenge-2 \
               --name prometheus \
@@ -82,8 +82,8 @@ jobs:
               --azure-file-volume-account-key ${{ secrets.__VOLUMEACCOUNTKEY__ }} \
               --azure-file-volume-share-name fiapappfiles \
               --azure-file-volume-mount-path /etc/Prometheus/ \
-              --environment-variables PROMETHEUS_CONFIG_PATH=/etc/prometheus/prometheus.yml \
-          fi \
+              --environment-variables PROMETHEUS_CONFIG_PATH=/etc/prometheus/prometheus.yml
+          fi
           set -e
 
       - name: Grafana

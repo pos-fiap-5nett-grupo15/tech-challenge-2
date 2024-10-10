@@ -46,7 +46,7 @@ jobs:
             --destination fiapappfiles/grafana \
             --source ./docker/monitoring/config/grafana/. \
             --account-key ${{ steps.get-storage-key.outputs.storage-key }}
-            
+
   prometheus:
     needs: upload
     name: Deploy Prometheus
@@ -86,7 +86,7 @@ jobs:
               --location eastus \
               --azure-file-volume-account-name fiapappstorage \
               --azure-file-volume-account-key ${{ secrets.__VOLUMEACCOUNTKEY__ }} \
-              --azure-file-volume-share-name fiapappfiles \
+              --azure-file-volume-share-name fiapappfiles/prometheus \
               --azure-file-volume-mount-path /etc/Prometheus/ \
               --environment-variables PROMETHEUS_CONFIG_PATH=/etc/prometheus/prometheus.yml
           else
@@ -103,7 +103,7 @@ jobs:
               --location eastus \
               --azure-file-volume-account-name fiapappstorage \
               --azure-file-volume-account-key ${{ secrets.__VOLUMEACCOUNTKEY__ }} \
-              --azure-file-volume-share-name fiapappfiles \
+              --azure-file-volume-share-name fiapappfiles/prometheus \
               --azure-file-volume-mount-path /etc/Prometheus/ \
               --environment-variables PROMETHEUS_CONFIG_PATH=/etc/prometheus/prometheus.yml
           fi
@@ -148,7 +148,7 @@ jobs:
               --location eastus \
               --azure-file-volume-account-name fiapappstorage \
               --azure-file-volume-account-key ${{ secrets.__VOLUMEACCOUNTKEY__ }} \
-              --azure-file-volume-share-name fiapappfiles \
+              --azure-file-volume-share-name fiapappfiles/grafana \
               --azure-file-volume-mount-path /etc/grafana/provisioning/ \
               --environment-variables GF_SECURITY_ADMIN_PASSWORD=admin
 
@@ -166,7 +166,7 @@ jobs:
               --location eastus \
               --azure-file-volume-account-name fiapappstorage \
               --azure-file-volume-account-key ${{ secrets.__VOLUMEACCOUNTKEY__ }} \
-              --azure-file-volume-share-name fiapappfiles \
+              --azure-file-volume-share-name fiapappfiles/grafana \
               --azure-file-volume-mount-path /etc/grafana/provisioning/ \
               --environment-variables GF_SECURITY_ADMIN_PASSWORD=admin
           fi

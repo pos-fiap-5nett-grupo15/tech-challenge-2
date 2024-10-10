@@ -74,7 +74,7 @@ jobs:
               --registry-username=fiap-token \
               --registry-password=${{ secrets.__REGISTRYPASSWORD__ }} \
               --ports 9090 \
-              --dns-name-label prometheus-container \
+              --dns-name-label prometheus-fiap-container \
               --location eastus \
               --azure-file-volume-account-name fiapappstorage \
               --azure-file-volume-account-key ${{ secrets.__VOLUMEACCOUNTKEY__ }} \
@@ -91,7 +91,7 @@ jobs:
               --registry-username=fiap-token \
               --registry-password=${{ secrets.__REGISTRYPASSWORD__ }} \
               --ports 9090 \
-              --dns-name-label prometheus-container \
+              --dns-name-label prometheus-fiap-container \
               --location eastus \
               --azure-file-volume-account-name fiapappstorage \
               --azure-file-volume-account-key ${{ secrets.__VOLUMEACCOUNTKEY__ }} \
@@ -130,13 +130,13 @@ jobs:
             az container create \
               --resource-group fiap-tech-challenge-2 \
               --name grafana \
-              --image grafana/grafana:7.2.1 \
+              --image grupo15fiap.azurecr.io/grafana/grafana:7.2.1 \
               --registry-login-server  grupo15fiap.azurecr.io \
               --assign-identity \
               --registry-username=fiap-token \
               --registry-password=${{ secrets.__REGISTRYPASSWORD__ }} \
               --ports 3000 \
-              --dns-name-label grafana-container \
+              --dns-name-label grafana-fiap-container \
               --location eastus \
               --azure-file-volume-account-name fiapappstorage \
               --azure-file-volume-account-key ${{ secrets.__VOLUMEACCOUNTKEY__ }} \
@@ -148,13 +148,13 @@ jobs:
             az container create \
               --resource-group fiap-tech-challenge-2 \
               --name grafana \
-              --image grafana/grafana:7.2.1 \
+              --image grupo15fiap.azurecr.io/grafana/grafana:7.2.1 \
               --registry-login-server  grupo15fiap.azurecr.io \
               --assign-identity \
               --registry-username=fiap-token \
               --registry-password=${{ secrets.__REGISTRYPASSWORD__ }} \
               --ports 3000 \
-              --dns-name-label grafana-container \
+              --dns-name-label grafana-fiap-container \
               --location eastus \
               --azure-file-volume-account-name fiapappstorage \
               --azure-file-volume-account-key ${{ secrets.__VOLUMEACCOUNTKEY__ }} \

@@ -12,6 +12,7 @@ on:
       - 'Docs/**'
       - 'azure-pipelines.yml'
       - 'README.md'
+      - '.github\workflows\monitoring.yml'
   pull_request:
     branches:
       - main
@@ -20,6 +21,7 @@ on:
       - 'Docs/**'
       - 'azure-pipelines.yml'
       - 'README.md'
+      - '.github\workflows\monitoring.yml'
   workflow_dispatch:
 
 jobs:

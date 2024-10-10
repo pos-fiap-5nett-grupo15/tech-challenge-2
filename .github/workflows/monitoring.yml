@@ -9,6 +9,7 @@ on:
       - 'Docs/**'
       - 'azure-pipelines.yml'
       - 'README.md'
+      - '.github\workflows\webapp.yml'
   pull_request:
     branches:
       - main
@@ -17,6 +18,7 @@ on:
       - 'Docs/**'
       - 'azure-pipelines.yml'
       - 'README.md'
+      - '.github\workflows\webapp.yml'
   workflow_dispatch:
   
 jobs:

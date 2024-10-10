@@ -92,7 +92,7 @@ jobs:
               --azure-file-volume-account-name fiapappstorage \
               --azure-file-volume-account-key ${{ secrets.__VOLUMEACCOUNTKEY__ }} \
               --azure-file-volume-share-name fiapappfiles \
-              --azure-file-volume-mount-path /etc/Prometheus/ \
+              --azure-file-volume-mount-path /etc/prometheus/ \
               --environment-variables PROMETHEUS_CONFIG_PATH=/etc/prometheus/prometheus.yml
           else
             az container create \
@@ -109,7 +109,7 @@ jobs:
               --azure-file-volume-account-name fiapappstorage \
               --azure-file-volume-account-key ${{ secrets.__VOLUMEACCOUNTKEY__ }} \
               --azure-file-volume-share-name fiapappfiles \
-              --azure-file-volume-mount-path /etc/Prometheus/ \
+              --azure-file-volume-mount-path /etc/prometheus/ \
               --environment-variables PROMETHEUS_CONFIG_PATH=/etc/prometheus/prometheus.yml
           fi
           

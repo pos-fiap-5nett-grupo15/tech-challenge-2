@@ -73,8 +73,7 @@
   "panels": [
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus"
       },
       "description": "Status do serviço monitorado",
       "fieldConfig": {
@@ -140,8 +139,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -162,8 +160,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus"
       },
       "description": "Último tempo de funcionamento registrado pela API",
       "fieldConfig": {
@@ -219,8 +216,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus"
           },
           "disableTextWrap": false,
           "editorMode": "code",
@@ -241,8 +237,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus"
       },
       "description": "Histórico do status da API por tempo",
       "fieldConfig": {
@@ -341,8 +336,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -374,8 +368,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus"
       },
       "description": "Percentual de utilização do CPU pela API",
       "fieldConfig": {
@@ -432,8 +425,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -452,8 +444,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus"
       },
       "description": "Histórico de utilização de CPU pela API por tempo",
       "fieldConfig": {
@@ -540,8 +531,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -560,8 +550,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus"
       },
       "description": "Uso da memória pela API(em bytes)",
       "fieldConfig": {
@@ -618,8 +607,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -638,8 +626,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus"
       },
       "description": "Histórico de utilização de RAM pela API(em bytes)",
       "fieldConfig": {
@@ -724,8 +711,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -757,8 +743,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus"
       },
       "description": "Número total de requisições recebidas pela API",
       "fieldConfig": {
@@ -827,8 +812,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus"
           },
           "disableTextWrap": false,
           "editorMode": "code",
@@ -847,8 +831,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus"
       },
       "description": "Média de tempo(em segundos) que as requisições estão levando na API",
       "fieldConfig": {
@@ -904,8 +887,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus"
           },
           "disableTextWrap": false,
           "editorMode": "code",
@@ -924,8 +906,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus"
       },
       "description": "Resumo dos status de resposta da API para as requisições durante o período selecionado",
       "fieldConfig": {
@@ -1003,8 +984,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -1025,8 +1005,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus"
       },
       "description": "Número de requisições recebidas por endpoint",
       "fieldConfig": {
@@ -1093,8 +1072,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus"
           },
           "disableTextWrap": false,
           "editorMode": "code",
@@ -1116,8 +1094,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus"
       },
       "description": "Resumo dos status de retorno(HttpStatus) retornados pela API",
       "fieldConfig": {
@@ -1168,8 +1145,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus"
           },
           "editorMode": "code",
           "expr": "sum(http_requests_info_total_count{job=~\"$job\", path=~\"$request_path\"}) by (request_status, path)",
@@ -1194,8 +1170,7 @@
       {
         "current": {},
         "datasource": {
-          "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus"
         },
         "definition": "label_values(up,job)",
         "description": "Nome do job a ser monitorado",
@@ -1220,8 +1195,7 @@
         "allValue": "",
         "current": {},
         "datasource": {
-          "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus"
         },
         "definition": "label_values(http_requests_info_total_count{job=\"$job\"},path)",
         "description": "Caminho da requisição: \"controller(método)\"",

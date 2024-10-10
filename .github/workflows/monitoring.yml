@@ -52,21 +52,21 @@ jobs:
             --source ./docker/monitoring/config/. \
             --account-key ${{ steps.get-storage-key.outputs.storage-key }}
 
-        - name: Upload Grafana Datasource Configs
-          run: |
-            az storage file upload-batch \
-              --account-name fiapappstorage \
-              --destination fiapappfiles/datasources \
-              --source ./docker/monitoring/config/. \
-              --account-key ${{ steps.get-storage-key.outputs.storage-key }}
+      - name: Upload Grafana Datasource Configs
+        run: |
+          az storage file upload-batch \
+            --account-name fiapappstorage \
+            --destination fiapappfiles/datasources \
+            --source ./docker/monitoring/config/. \
+            --account-key ${{ steps.get-storage-key.outputs.storage-key }}
 
-        - name: Upload Dashboards Configs
-          run: |
-            az storage file upload-batch \
-              --account-name fiapappstorage \
-              --destination fiapappfiles/dashboards \
-              --source ./docker/monitoring/config/. \
-              --account-key ${{ steps.get-storage-key.outputs.storage-key }}
+      - name: Upload Dashboards Configs
+        run: |
+          az storage file upload-batch \
+            --account-name fiapappstorage \
+            --destination fiapappfiles/dashboards \
+            --source ./docker/monitoring/config/. \
+            --account-key ${{ steps.get-storage-key.outputs.storage-key }}
   prometheus:
     needs: upload
     name: Deploy Prometheus

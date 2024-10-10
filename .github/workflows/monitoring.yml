@@ -31,20 +31,12 @@ jobs:
           STORAGE_KEY=$(az storage account keys list --resource-group fiap-tech-challenge-2 --account-name fiapappstorage --query '[0].value' --output tsv)
           echo "storage-key=$STORAGE_KEY" >> $GITHUB_OUTPUT
           
-      - name: Upload Prometheus Configs
+      - name: Upload Configs
         run: |
           az storage file upload-batch \
             --account-name fiapappstorage \
-            --destination fiapappfiles/prometheus \
-            --source ./docker/monitoring/config/prometheus/. \
-            --account-key ${{ steps.get-storage-key.outputs.storage-key }}
-
-      - name: Upload Prometheus Configs
-        run: |
-          az storage file upload-batch \
-            --account-name fiapappstorage \
-            --destination fiapappfiles/grafana \
-            --source ./docker/monitoring/config/grafana/. \
+            --destination fiapappfiles \
+            --source ./docker/monitoring/config/. \
             --account-key ${{ steps.get-storage-key.outputs.storage-key }}
 
   prometheus:
@@ -86,7 +78,7 @@ jobs:
               --location eastus \
               --azure-file-volume-account-name fiapappstorage \
               --azure-file-volume-account-key ${{ secrets.__VOLUMEACCOUNTKEY__ }} \
-              --azure-file-volume-share-name fiapappfiles/prometheus \
+              --azure-file-volume-share-name fiapappfiles \
               --azure-file-volume-mount-path /etc/Prometheus/ \
               --environment-variables PROMETHEUS_CONFIG_PATH=/etc/prometheus/prometheus.yml
           else
@@ -103,7 +95,7 @@ jobs:
               --location eastus \
               --azure-file-volume-account-name fiapappstorage \
               --azure-file-volume-account-key ${{ secrets.__VOLUMEACCOUNTKEY__ }} \
-              --azure-file-volume-share-name fiapappfiles/prometheus \
+              --azure-file-volume-share-name fiapappfiles \
               --azure-file-volume-mount-path /etc/Prometheus/ \
               --environment-variables PROMETHEUS_CONFIG_PATH=/etc/prometheus/prometheus.yml
           fi
@@ -148,7 +140,7 @@ jobs:
               --location eastus \
               --azure-file-volume-account-name fiapappstorage \
               --azure-file-volume-account-key ${{ secrets.__VOLUMEACCOUNTKEY__ }} \
-              --azure-file-volume-share-name fiapappfiles/grafana \
+              --azure-file-volume-share-name fiapappfiles \
               --azure-file-volume-mount-path /etc/grafana/provisioning/ \
               --environment-variables GF_SECURITY_ADMIN_PASSWORD=admin
 
@@ -166,7 +158,7 @@ jobs:
               --location eastus \
               --azure-file-volume-account-name fiapappstorage \
               --azure-file-volume-account-key ${{ secrets.__VOLUMEACCOUNTKEY__ }} \
-              --azure-file-volume-share-name fiapappfiles/grafana \
+              --azure-file-volume-share-name fiapappfiles \
               --azure-file-volume-mount-path /etc/grafana/provisioning/ \
               --environment-variables GF_SECURITY_ADMIN_PASSWORD=admin
           fi

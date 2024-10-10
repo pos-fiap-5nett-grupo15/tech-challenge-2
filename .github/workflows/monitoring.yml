@@ -3,7 +3,20 @@ name: Build and Deploy Prometheus and Grafana
 on:
   push:
     branches:
-      - feat/monitoring-settings
+      - main
+    paths-ignore:
+      - 'ContactsManager/**'
+      - 'Docs/**'
+      - 'azure-pipelines.yml'
+      - 'README.md'
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - 'ContactsManager/**'
+      - 'Docs/**'
+      - 'azure-pipelines.yml'
+      - 'README.md'
   workflow_dispatch:
   
 jobs:

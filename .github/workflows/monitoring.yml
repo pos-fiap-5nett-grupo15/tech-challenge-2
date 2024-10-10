@@ -31,14 +31,22 @@ jobs:
           STORAGE_KEY=$(az storage account keys list --resource-group fiap-tech-challenge-2 --account-name fiapappstorage --query '[0].value' --output tsv)
           echo "storage-key=$STORAGE_KEY" >> $GITHUB_OUTPUT
           
-      - name: Upload Configs
+      - name: Upload Prometheus Configs
         run: |
           az storage file upload-batch \
             --account-name fiapappstorage \
-            --destination fiapappfiles \
-            --source ./docker/monitoring/config/. \
+            --destination fiapappfiles/prometheus \
+            --source ./docker/monitoring/config/prometheus/. \
             --account-key ${{ steps.get-storage-key.outputs.storage-key }}
 
+      - name: Upload Prometheus Configs
+        run: |
+          az storage file upload-batch \
+            --account-name fiapappstorage \
+            --destination fiapappfiles/grafana \
+            --source ./docker/monitoring/config/grafana/. \
+            --account-key ${{ steps.get-storage-key.outputs.storage-key }}
+            
   prometheus:
     needs: upload
     name: Deploy Prometheus

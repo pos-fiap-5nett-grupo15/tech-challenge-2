@@ -3,7 +3,20 @@ name: Build and Deploy Prometheus and Grafana
 on:
   push:
     branches:
-      - feat/monitoring-settings
+      - main
+    paths-ignore:
+      - 'ContactsManager/**'
+      - 'Docs/**'
+      - 'azure-pipelines.yml'
+      - 'README.md'
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - 'ContactsManager/**'
+      - 'Docs/**'
+      - 'azure-pipelines.yml'
+      - 'README.md'
   workflow_dispatch:
   
 jobs:
@@ -38,3 +51,127 @@ jobs:
             --destination fiapappfiles \
             --source ./docker/monitoring/config/. \
             --account-key ${{ steps.get-storage-key.outputs.storage-key }}
+
+  prometheus:
+    needs: upload
+    name: Deploy Prometheus
+    runs-on: ubuntu-latest
+    environment:
+      name: 'production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    permissions:
+      id-token: write #This is required for requesting the JWT
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Azure Login
+        uses: Azure/login@v2.2.0
+        with:
+          client-id: ${{ secrets.__clientidsecretname__  }}
+          tenant-id: ${{ secrets.__tenantidsecretname__ }}
+          subscription-id: ${{ secrets.__subscriptionidsecretname__ }}
+          
+      - name: Prometheus
+        run: |
+          set +e
+          az container show --resource-group fiap-tech-challenge-2 --name prometheus;
+          set -e
+          if [ $? -eq 0 ]; then
+            az container delete --resource-group fiap-tech-challenge-2 --name prometheus --yes
+            az container create \
+              --resource-group fiap-tech-challenge-2 \
+              --name prometheus \
+              --image grupo15fiap.azurecr.io/prom/prometheus:v2.24.1 \
+              --registry-login-server  grupo15fiap.azurecr.io \
+              --assign-identity \
+              --registry-username=fiap-token \
+              --registry-password=${{ secrets.__REGISTRYPASSWORD__ }} \
+              --ports 9090 \
+              --dns-name-label prometheus-fiap-container \
+              --location eastus \
+              --azure-file-volume-account-name fiapappstorage \
+              --azure-file-volume-account-key ${{ secrets.__VOLUMEACCOUNTKEY__ }} \
+              --azure-file-volume-share-name fiapappfiles \
+              --azure-file-volume-mount-path /etc/Prometheus/ \
+              --environment-variables PROMETHEUS_CONFIG_PATH=/etc/prometheus/prometheus.yml
+          else
+            az container create \
+              --resource-group fiap-tech-challenge-2 \
+              --name prometheus \
+              --image grupo15fiap.azurecr.io/prom/prometheus:v2.24.1 \
+              --registry-login-server  grupo15fiap.azurecr.io \
+              --assign-identity \
+              --registry-username=fiap-token \
+              --registry-password=${{ secrets.__REGISTRYPASSWORD__ }} \
+              --ports 9090 \
+              --dns-name-label prometheus-fiap-container \
+              --location eastus \
+              --azure-file-volume-account-name fiapappstorage \
+              --azure-file-volume-account-key ${{ secrets.__VOLUMEACCOUNTKEY__ }} \
+              --azure-file-volume-share-name fiapappfiles \
+              --azure-file-volume-mount-path /etc/Prometheus/ \
+              --environment-variables PROMETHEUS_CONFIG_PATH=/etc/prometheus/prometheus.yml
+          fi
+          
+
+  grafana:
+    needs: prometheus
+    name: Deploy Grafana
+    runs-on: ubuntu-latest
+    environment:
+      name: 'production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    permissions:
+      id-token: write #This is required for requesting the JWT
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Azure Login
+        uses: Azure/login@v2.2.0
+        with:
+          client-id: ${{ secrets.__clientidsecretname__  }}
+          tenant-id: ${{ secrets.__tenantidsecretname__ }}
+          subscription-id: ${{ secrets.__subscriptionidsecretname__ }}
+          
+      - name: Azure az delete and create ACI
+        run: |
+          set +e
+          az container show --resource-group fiap-tech-challenge-2 --name grafana;
+          set -e
+          if [ $? -eq 0 ]; then
+            az container delete --resource-group fiap-tech-challenge-2 --name grafana --yes
+            az container create \
+              --resource-group fiap-tech-challenge-2 \
+              --name grafana \
+              --image grupo15fiap.azurecr.io/grafana/grafana:7.2.1 \
+              --registry-login-server  grupo15fiap.azurecr.io \
+              --assign-identity \
+              --registry-username=fiap-token \
+              --registry-password=${{ secrets.__REGISTRYPASSWORD__ }} \
+              --ports 3000 \
+              --dns-name-label grafana-fiap-container \
+              --location eastus \
+              --azure-file-volume-account-name fiapappstorage \
+              --azure-file-volume-account-key ${{ secrets.__VOLUMEACCOUNTKEY__ }} \
+              --azure-file-volume-share-name fiapappfiles \
+              --azure-file-volume-mount-path /etc/grafana/provisioning/ \
+              --environment-variables GF_SECURITY_ADMIN_PASSWORD=admin
+
+          else
+            az container create \
+              --resource-group fiap-tech-challenge-2 \
+              --name grafana \
+              --image grupo15fiap.azurecr.io/grafana/grafana:7.2.1 \
+              --registry-login-server  grupo15fiap.azurecr.io \
+              --assign-identity \
+              --registry-username=fiap-token \
+              --registry-password=${{ secrets.__REGISTRYPASSWORD__ }} \
+              --ports 3000 \
+              --dns-name-label grafana-fiap-container \
+              --location eastus \
+              --azure-file-volume-account-name fiapappstorage \
+              --azure-file-volume-account-key ${{ secrets.__VOLUMEACCOUNTKEY__ }} \
+              --azure-file-volume-share-name fiapappfiles \
+              --azure-file-volume-mount-path /etc/grafana/provisioning/ \
+              --environment-variables GF_SECURITY_ADMIN_PASSWORD=admin
+          fi

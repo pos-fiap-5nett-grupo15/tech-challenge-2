@@ -141,11 +141,20 @@ Média de tempo(em segundos) que as requisições estão levando na API
 | **Threshold** | base = verde; 80 = vermelho |
 
 ### Status de resposta das requisições
-Resumo dos status de resposta da API para as requisições durante o período selecionado
+Resumo dos status de resposta da API para as requisições durante o período selecionado. Gráfico de tendência: mostrando a tendência(volume de requisições em um determinado número de tempo) de requisições recebidas no período
 
 |  |  |
 | -- | -- |
 | **Query(promql)** | sum by(request_status) (round(increase(http_requests_info_total_count{job=~"$job"}[$__range]))) |
+| **Value mapping** | - |
+| **Threshold** | - |
+
+### Requisições por status de resposta
+Contagem de requisições por status de resposta(http status)
+
+|  |  |
+| -- | -- |
+| **Query(promql)** | sum(http_requests_info_total_count{job=~"$job", path=~"$request_path"}) by (request_status) |
 | **Value mapping** | - |
 | **Threshold** | - |
 

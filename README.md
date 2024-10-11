@@ -72,6 +72,12 @@ export TECH1_API_SEC_IV="iqs1k4XU6wADBBOP3cpg5A=="
 
 
 
-## Documentação do Prometheus
+## Documentações e referências
 
-https://github.com/prometheus-net/prometheus-net
+### Documentações Internas
+- [Dashboard](./docker/monitoring/README.md)
+
+### Referências Externas
+- [Prometheus](https://prometheus.io/docs/prometheus/)
+- [Prometheus - Github](https://github.com/prometheus-net/prometheus-net)
+- [Grafana](https://grafana.com/docs/grafana/latest/)

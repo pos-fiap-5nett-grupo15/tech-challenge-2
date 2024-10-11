@@ -10,11 +10,12 @@ services:
       - monitoring
 
   grafana:
-    image: grafana/grafana:7.2.1
+    image: grafana/grafana:11.2.0
     container_name: grafana
     depends_on:
       - prometheus
     volumes:
+      - ./monitoring/grafana/dashboard_setup.json:/etc/grafana/provisioning/dashboards/imported-dashboards/dashboard.json
       - ./monitoring/config/prometheus-datasource.yml:/etc/grafana/provisioning/datasources/prometheus-datasource.yml
       - ./monitoring/config/prometheus-dashboard.yml:/etc/grafana/provisioning/dashboards/prometheus-dashboard.yml
     ports:

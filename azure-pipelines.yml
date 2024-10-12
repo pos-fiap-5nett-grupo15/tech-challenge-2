@@ -11,7 +11,6 @@ trigger:
     include:
         - docker/sql-server/**
     exclude:
-      - '**/*'
       - docker/sql-server/README.md
 pool:
   vmImage: ubuntu-latest

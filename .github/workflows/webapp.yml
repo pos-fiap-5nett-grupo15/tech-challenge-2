@@ -12,15 +12,6 @@ on:
       - 'Docs/**'
       - 'azure-pipelines.yml'
       - 'README.md'
-      
-  pull_request:
-    branches:
-      - main
-    paths-ignore:
-      - 'docker/**'
-      - 'Docs/**'
-      - 'azure-pipelines.yml'
-      - 'README.md'
 
 jobs:
   build:

@@ -12,6 +12,17 @@ trigger:
         - docker/sql-server/**
     exclude:
       - docker/sql-server/README.md
+  
+pr:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - docker/sql-server/**
+    exclude:
+      - docker/sql-server/README.md
+
 pool:
   vmImage: ubuntu-latest
 

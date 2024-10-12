@@ -1,5 +1,4 @@
 ﻿using ContactsManagement.Domain.Entities;
-using ContactsManagement.Infrastructure.Data;
 using ContactsManagement.Infrastructure.UnitOfWork;
 using Dapper;
 

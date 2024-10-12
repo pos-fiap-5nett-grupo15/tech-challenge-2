@@ -34,6 +34,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Prometheus;
 using System.Text;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using ContactsManagement.Infrastructure.HealthCheck;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 namespace ContactsManagement.Api
 {
@@ -48,7 +51,12 @@ namespace ContactsManagement.Api
 
         internal void ConfigureService(IServiceCollection services)
         {
-            services.AddHealthChecks();
+            var crypto = new CryptoService();
+            services.AddSingleton<ICryptoService>(crypto);
+
+            services.AddHealthChecks().AddCheck("self", () => HealthCheckResult.Healthy("Application is running"), tags: new[] { "app" });
+            services.AddHealthChecks().AddCheck("sqlserver", new SqlConnectionHealthCheck(this.Configuration, crypto), tags: new[] {"db"});
+
 
 
             var jwtSettings = this.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
@@ -60,7 +68,7 @@ namespace ContactsManagement.Api
 
             ConfigureAuthentication(services, jwtSettings.SecretKey);
 
-            services.AddSingleton<ICryptoService>(new CryptoService());
+
 
             ConfigureDatabaseService(services, this.Configuration);
             services.AddEndpointsApiExplorer();
@@ -184,6 +192,16 @@ namespace ContactsManagement.Api
             {
                 endpoints.MapControllers();
                 endpoints.MapHealthChecks("/healthcheck");
+
+                endpoints.MapHealthChecks("/healthcheck/app", new HealthCheckOptions
+                {
+                    Predicate = check => check.Tags.Contains("app")
+                });
+
+                endpoints.MapHealthChecks("/healthcheck/db", new HealthCheckOptions
+                {
+                    Predicate = check => check.Tags.Contains("db")
+                });
             });
 
             app.UseMetricServer();

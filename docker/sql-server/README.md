@@ -11,7 +11,7 @@ No folder do Dockerfile
 ```shell
 docker build -t mssql-tech-1 .
 
-docker run -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=Q1w2e3r4' -e 'SVC_PASS=340$Uuxwp7Mcxo7Khy' -p 1433:1433 --name sql1 -d mssql-tech-1
+docker run -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=Q1w2e3r4' -e 'SVC_PASS=Q1w2e3r4' -p 1433:1433 --name sql1 -d mssql-tech-1
 ```
 
 

@@ -46,7 +46,7 @@ export TECH1_API_SEC_IV="iqs1k4XU6wADBBOP3cpg5A=="
 | Descrição | Usuário | Senha |
 |---|---|---|
 | Usuário SA | sa | Q1w2e3r4 |
-| Usuário SVC | svc_con_mngt | 340$Uuxwp7Mcxo7Khy |
+| Usuário SVC | svc_con_mngt | Q1w2e3r4 |
 
 #### Variáveis de Ambiente
 

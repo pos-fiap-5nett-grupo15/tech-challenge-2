@@ -6,7 +6,7 @@ name: Build and deploy ASP.Net Core app to Azure Web App - fiap-webap-76a464e5dc
 on:
   push:
     branches:
-      - main
+      - feat/add-ci-unit-test
     paths-ignore:
       - 'docker/**'
       - 'Docs/**'
@@ -36,6 +36,16 @@ jobs:
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
+  
+  jobs:
+    build:
+      runs-on: windows-latest
+
+      steps:
+        - uses: actions/checkout@v4
+
+        - name: Run Unit Tests
+          run: dotnet test TestesUnitarios/TestesUnitarios.csproj
 
   deploy:
     runs-on: windows-latest

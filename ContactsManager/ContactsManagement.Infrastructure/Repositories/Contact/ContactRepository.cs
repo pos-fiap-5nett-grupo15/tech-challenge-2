@@ -13,8 +13,9 @@ namespace ContactsManagement.Infrastructure.Repositories.Contact
         public ContactRepository(ITech1Database database) =>
             _database = database;
 
-        public async Task CreateAsync(ContactEntity model) =>
-            await _database.Connection.ExecuteAsync(
+        public async Task<int> CreateAsync(ContactEntity model)
+        {
+            var result = await _database.Connection.ExecuteScalarAsync<int>(
                 $@"INSERT INTO
                     [{SCHEMA}].[{TABLE_NAME}]
                          ({nameof(ContactEntity.Nome)},
@@ -25,7 +26,12 @@ namespace ContactsManagement.Infrastructure.Repositories.Contact
                           ('{model.Nome}',
                            '{model.Email}',
                            {model.Ddd},
-                           {model.Telefone});");
+                           {model.Telefone});
+                    SELECT SCOPE_IDENTITY();
+            ");
+            return result;
+        }
+
 
         public async Task<ContactEntity?> GetByIdAsync(int id) =>
             await _database.Connection.QueryFirstOrDefaultAsync<ContactEntity>(

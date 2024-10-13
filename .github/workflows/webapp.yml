@@ -6,7 +6,7 @@ name: Build and deploy ASP.Net Core app to Azure Web App - fiap-webap-76a464e5dc
 on:
   push:
     branches:
-      - feat/add-ci-unit-test
+      - main
     paths-ignore:
       - 'docker/**'
       - 'Docs/**'

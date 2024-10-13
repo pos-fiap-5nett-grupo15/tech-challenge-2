@@ -82,3 +82,17 @@ jobs:
           app-name: 'fiap-webapp-76a464e5dc4e49de8fc674e0db728386'
           package: .
           
+  integration-tests:
+    runs-on: windows-latest
+    needs: build
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
+      
+      - name: Run Unit Tests
+        run: dotnet test ./ContactsManager/TestesIntergacao/TestesIntergacao.csproj

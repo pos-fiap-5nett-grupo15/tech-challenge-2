@@ -36,10 +36,25 @@ jobs:
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
+  
+  unit-tests:
+    runs-on: windows-latest
+    needs: build
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
+      
+      - name: Run Unit Tests
+        run: dotnet test ./ContactsManager/TestesUnitarios/TestesUnitarios.csproj
 
   deploy:
     runs-on: windows-latest
-    needs: build
+    needs: unit-tests
     environment:
       name: 'production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}

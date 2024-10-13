@@ -132,12 +132,23 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+  
       - name: Azure Login
         uses: Azure/login@v2.2.0
         with:
           client-id: ${{ secrets.__clientidsecretname__  }}
           tenant-id: ${{ secrets.__tenantidsecretname__ }}
           subscription-id: ${{ secrets.__subscriptionidsecretname__ }}
+  
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v6.9.0
+        with:
+          file: ./docker/grafana-image/Dockerfile
+          push: true
+          tags: grupo15fiap.azurecr.io/grafana/grafana-configured:11.2.0
           
       - name: Azure az delete and create ACI
         run: |

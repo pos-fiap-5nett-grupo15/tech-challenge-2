@@ -149,7 +149,7 @@ jobs:
             az container create \
               --resource-group fiap-tech-challenge-2 \
               --name grafana \
-              --image grupo15fiap.azurecr.io/grafana/grafana:7.2.1 \
+              --image grupo15fiap.azurecr.io/grafana/grafana-configured:11.2.0 \
               --registry-login-server  grupo15fiap.azurecr.io \
               --assign-identity \
               --registry-username=fiap-token \
@@ -157,17 +157,13 @@ jobs:
               --ports 3000 \
               --dns-name-label grafana-fiap-container \
               --location eastus \
-              --azure-file-volume-account-name fiapappstorage \
-              --azure-file-volume-account-key ${{ secrets.__VOLUMEACCOUNTKEY__ }} \
-              --azure-file-volume-share-name fiapappfiles \
-              --azure-file-volume-mount-path /etc/grafana/provisioning/ \
               --environment-variables GF_SECURITY_ADMIN_PASSWORD=admin
 
           else
             az container create \
               --resource-group fiap-tech-challenge-2 \
               --name grafana \
-              --image grupo15fiap.azurecr.io/grafana/grafana:7.2.1 \
+              --image grupo15fiap.azurecr.io/grafana/grafana-configured:11.2.0 \
               --registry-login-server  grupo15fiap.azurecr.io \
               --assign-identity \
               --registry-username=fiap-token \
@@ -175,9 +171,5 @@ jobs:
               --ports 3000 \
               --dns-name-label grafana-fiap-container \
               --location eastus \
-              --azure-file-volume-account-name fiapappstorage \
-              --azure-file-volume-account-key ${{ secrets.__VOLUMEACCOUNTKEY__ }} \
-              --azure-file-volume-share-name fiapappfiles \
-              --azure-file-volume-mount-path /etc/grafana/provisioning/ \
               --environment-variables GF_SECURITY_ADMIN_PASSWORD=admin
           fi

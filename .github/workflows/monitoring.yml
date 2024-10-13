@@ -3,7 +3,7 @@ name: Build and Deploy Prometheus and Grafana
 on:
   push:
     branches:
-      - feat/grafana-configured-image
+      - main
     paths-ignore:
       - 'ContactsManager/**'
       - 'Docs/**'
@@ -121,6 +121,7 @@ jobs:
           
 
   grafana:
+    needs: prometheus
     name: Deploy Grafana
     runs-on: ubuntu-latest
     environment:

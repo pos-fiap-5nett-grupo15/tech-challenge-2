@@ -44,8 +44,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
+      
       - name: Run Unit Tests
-        run: dotnet test TestesUnitarios/TestesUnitarios.csproj
+        run: dotnet test ./TestesUnitarios/TestesUnitarios.csproj
 
   deploy:
     runs-on: windows-latest

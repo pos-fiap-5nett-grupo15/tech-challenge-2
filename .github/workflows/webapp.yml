@@ -94,5 +94,5 @@ jobs:
         with:
           dotnet-version: '8.x'
       
-      - name: Run Unit Tests
+      - name: Run Integration Tests
         run: dotnet test ./ContactsManager/TestesIntergacao/TestesIntergacao.csproj

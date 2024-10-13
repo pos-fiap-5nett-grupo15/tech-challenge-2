@@ -121,7 +121,6 @@ jobs:
           
 
   grafana:
-    needs: prometheus
     name: Deploy Grafana
     runs-on: ubuntu-latest
     environment:

@@ -50,11 +50,11 @@ jobs:
           dotnet-version: '8.x'
       
       - name: Run Unit Tests
-        run: dotnet test ./TestesUnitarios/TestesUnitarios.csproj
+        run: dotnet test ./ContactsManager/TestesUnitarios/TestesUnitarios.csproj
 
   deploy:
     runs-on: windows-latest
-    needs: unit-tests
+    needs: build
     environment:
       name: 'production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}

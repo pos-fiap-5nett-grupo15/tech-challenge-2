@@ -37,15 +37,14 @@ jobs:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
   
-  jobs:
-    build:
-      runs-on: windows-latest
+  unit-tests:
+    runs-on: windows-latest
 
-      steps:
-        - uses: actions/checkout@v4
+    steps:
+      - uses: actions/checkout@v4
 
-        - name: Run Unit Tests
-          run: dotnet test TestesUnitarios/TestesUnitarios.csproj
+      - name: Run Unit Tests
+        run: dotnet test TestesUnitarios/TestesUnitarios.csproj
 
   deploy:
     runs-on: windows-latest

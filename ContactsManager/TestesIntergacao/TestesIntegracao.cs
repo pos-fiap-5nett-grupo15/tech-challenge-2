@@ -76,10 +76,10 @@ namespace TestesIntegracao
                 Ddd = 15,
                 Telefone = 999999999
             };
-            await _repository.CreateAsync(contact);
+            var id = await _repository.CreateAsync(contact);
 
-            await _repository.UpdateByIdAsync(1, "João Updated", null, null, null);
-            var updatedContact = await _repository.GetByIdAsync(1);
+            await _repository.UpdateByIdAsync(id, "João Updated", null, null, null);
+            var updatedContact = await _repository.GetByIdAsync(id);
 
             Assert.NotNull(updatedContact);
             Assert.Equal("João Updated", updatedContact.Nome);

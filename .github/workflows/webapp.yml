@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app to Azure Web App - fiap-webap-76a464e5dc4e49de8fc674e0db728386
+name: CI CD - ASP.Net Azure Web App FIAP
 
 on:
   push:
@@ -82,3 +82,17 @@ jobs:
           app-name: 'fiap-webapp-76a464e5dc4e49de8fc674e0db728386'
           package: .
           
+  integration-tests:
+    runs-on: windows-latest
+    needs: deploy
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
+      
+      - name: Run Integration Tests
+        run: dotnet test ./ContactsManager/TestesIntergacao/TestesIntergacao.csproj
